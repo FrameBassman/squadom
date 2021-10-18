@@ -288,7 +288,7 @@ export default {
 
     & a {
       pointer-events: all;
-      color: lightblue;
+      color: lightblue !important;
     }
   }
 
