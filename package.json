@@ -10,10 +10,11 @@
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "^2.0.1",
-    "@nuxtjs/google-analytics": "^2.4.0",
+    "@vue/shared": "^3.2.23",
     "core-js": "^3.8.2",
     "nuxt": "^2.14.12",
     "nuxt-property-decorator": "^2.9.1",
+    "vue-gtag": "^1.16.1",
     "vue-responsive-video-background-player": "^1.2.1"
   },
   "devDependencies": {

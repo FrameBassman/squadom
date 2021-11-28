@@ -26,7 +26,7 @@
             <v-img
               v-if="!drawer"
               src="sound_off.svg"
-              style="height: 30px; text-align: center;"
+              style="height: 30px; text-align: center; cursor: pointer;"
               contain
 
               :style="`height: 30px; margin-top: 14px; text-align: center; ${this.isSoundEnabled ? 
@@ -82,11 +82,13 @@
                     />
                   </v-flex>
                   <v-flex xs="3">
-                    <v-img
-                      src="/trip.svg"
-                      style="width: 60x; height: 60px;"
-                      contain
-                    />
+                    <a href="https://www.tripadvisor.com/Attraction_Review-g1203043-d23205663-Reviews-Squadom_hr-Zlatar_Krapina_Zagorje_County_Central_Croatia.html">
+                      <v-img
+                        src="/trip.svg"
+                        style="width: 60x; height: 60px;"
+                        contain
+                      />
+                    </a>
                   </v-flex>
                 </v-row>
               </v-list-item>
@@ -99,7 +101,7 @@
         </v-navigation-drawer>
 
         <nuxt />
-        <v-row :style="`${$vuetify.breakpoint.smAndUp ? '' : 'pointer-events: none;'} position: fixed; left: 45px; right: 45px; top: 0; z-index: 12; margin-top: ${$vuetify.breakpoint.smAndUp ? '78px' : '0'};`">
+        <v-row v-if="$vuetify.breakpoint.mdAndUp || (this.scrolledToTop && (this.$router.currentRoute.path === '/' || this.$router.currentRoute.path === ''))" :style="`${$vuetify.breakpoint.smAndUp ? '' : 'pointer-events: none;'} position: fixed; left: 45px; right: 45px; top: 0; z-index: 12; margin-top: ${$vuetify.breakpoint.smAndUp ? '78px' : '0'};`">
           <v-col>
             <v-row class="mx-auto" :style="$vuetify.breakpoint.lgAndUp ? 'width: 59vw;' : ($vuetify.breakpoint.mdAndDown ? 'width: 70vw;' : '')">
               <v-col>
@@ -108,7 +110,7 @@
                     <NuxtLink to="/">
                       <v-img 
                         src="/logo.png"
-                        :style="`width: ${$vuetify.breakpoint.smAndUp ? '500px' : ($vuetify.breakpoint.width-80)+'px'}; 
+                        :style="`cursor: pointer; width: ${$vuetify.breakpoint.smAndUp ? '500px' : ($vuetify.breakpoint.width-80)+'px'}; 
                         height: 174px; ${$vuetify.breakpoint.smAndUp ? 'position: absolute; left: 20px; top: 0;' : 
                         'position: relative; margin: 0 auto;'}`"
                         contain
@@ -133,11 +135,14 @@
                       style="width: 30x; height: 30px; position: absolute; left: 132px; top: 27px;"
                       contain
                     />
-                    <v-img v-if="$vuetify.breakpoint.smAndUp"
-                      src="/trip.svg"
-                      style="width: 30x; height: 30px; position: absolute; left: 166px; top: 27px;"
-                      contain
-                    />
+                    <a href="https://www.tripadvisor.com/Attraction_Review-g1203043-d23205663-Reviews-Squadom_hr-Zlatar_Krapina_Zagorje_County_Central_Croatia.html"
+                    v-if="$vuetify.breakpoint.smAndUp">
+                      <v-img
+                        src="/trip.svg"
+                        style="width: 30x; height: 30px; position: absolute; left: 166px; top: 27px;"
+                        contain
+                      />
+                    </a>
                   </v-col>
                   <v-col xs="6" sm="6" md="6" lg="6" xl="6" :style="$vuetify.breakpoint.width > 1630 ? 'margin-top: 80px;' : 'margin-top: '+($vuetify.breakpoint.smAndUp ? '140px;' : '-30px;')">
                     <a href="mailto:info@squadom.hr">
@@ -166,7 +171,9 @@ export default {
       title: 'Squadom.hr',
       drawer: false,
       group: null,
-      audio: null
+      audio: null,
+      scrolledToTop: true,
+      scrolledToBottom: false
     }
   },
 
@@ -191,6 +198,7 @@ export default {
     playSound() {
       if (this.isSoundEnabled && !this.audio) { 
         this.audio = new Audio(require('@/assets/sounds/v1.mp3'));
+        this.audio.loop = true;
         this.audio.play();
       } else {
         if (this.audio) {
@@ -200,16 +208,28 @@ export default {
       }
     },
 
-    onScroll (e) {
-      if (e.deltaY > 0 && this.$router.currentRoute.name !== 'detail') {
+    detectScrollMode() {
+        let topOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight <= document.documentElement.offsetHeight +50;
+        let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight / 2 > document.documentElement.offsetHeight +200;
+
+        this.scrolledToTop = topOfWindow
+        this.scrolledToBottom = bottomOfWindow
+
+        // console.log(Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight / 2)
+        // console.log(document.documentElement.offsetHeight + 100)
+        // console.log('')
+    },
+
+    /* onScroll (e) {
+      if (e.deltaY > 0 && this.$router.currentRoute.path !== 'detail') {
         this.$router.push('lokacija')
       } else if (e.deltaY < 0 && 
-          this.$router.currentRoute.name !== 'index' && 
-          this.$router.currentRoute.name !== '/' && 
-          this.$router.currentRoute.name !== '') {
+          this.$router.currentRoute.path !== 'index' && 
+          this.$router.currentRoute.path !== '/' && 
+          this.$router.currentRoute.path !== '') {
         this.$router.push('/')
       }
-    },
+    }, */
 
     handleTouchStart (e) {
       var touchobj = e.changedTouches[0]
@@ -264,6 +284,11 @@ export default {
           // window.addEventListener('scroll', this.detectScrollMode);
           // init
           // this.detectScrollMode();
+
+          // set on scroll
+          window.addEventListener('scroll', this.detectScrollMode);
+          // init
+          this.detectScrollMode();
       }
   },
 
@@ -280,6 +305,8 @@ export default {
           // window.addEventListener("touchmove", this.handleTouchMove, false);
 
           // window.addEventListener("touchcancel", this.handleTouchCancel, false);
+
+        window.removeEventListener('scroll', this.detectScrollMode);
       }
   }
 }
@@ -319,10 +346,8 @@ export default {
     @media (max-width: 560px) {
       bottom: 65vh;
     }
-    bottom: 35vh;
     height: 50px;
     background-color: rgba(255, 115, 0, 0.781);
-    position: fixed;
     border-radius: 10px;
     text-align: center;
     display: flex;
@@ -331,6 +356,7 @@ export default {
     font-size: 24px;
     font-weight: bold;
     vertical-align: middle;
+    margin-bottom: 1vh;
 
     & a {
       color: white !important;
@@ -341,16 +367,19 @@ export default {
   }
 
   .text-area {
-    bottom: 200px;
     max-height: 50%;
     overflow-y: scroll;
     width: 58vw;
     background-color: #009c00d0;
-    position: fixed;
     display: flex;
     border-radius: 20px;
     align-items: center;
     color: white;
+
+    /* hide scrollbar but allow scrolling */
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll;
 
     & a {
       pointer-events: all;
@@ -358,9 +387,16 @@ export default {
     }
   }
 
-  .text-area-page {
-    top: 400px;
-    max-height: calc(100% - 450px);
+  .text-area::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+  }
+
+  .info-container {
+    position: fixed;
+    bottom: 200px;
+  }
+
+  .text-area-page { 
     overflow-y: scroll;
     background: transparent;
     position: fixed;
@@ -369,6 +405,11 @@ export default {
     color: white;
     font-size: 18px;
     font-weight: normal;
+
+    /* hide scrollbar but allow scrolling */
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll;
 
     & p {
       color: white;
@@ -392,6 +433,10 @@ export default {
       font-weight: normal;
       text-decoration: underline;
     }
+  }
+
+  .text-area-page::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
   }
 
   .top-menu-icon .v-icon {

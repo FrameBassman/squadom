@@ -34,7 +34,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: './plugins/video-background', mode: 'client' }
+    { src: './plugins/video-background', mode: 'client' },
+    { src: './plugins/ga', mode: 'all' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -46,16 +47,11 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
-    '@nuxtjs/google-analytics',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
   ],
-
-  googleAnalytics: {
-    id: 'G-HMFF9YRREJ'
-  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

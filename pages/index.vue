@@ -40,16 +40,18 @@
   <v-row :class="`fadeclass${this.scrolledToBottom && this.texts[this.photo_number] ? '--visible' : ''}`" style="pointer-events: none;">
     <v-col>
       <v-row :class="`mx-auto`" justify="center" :style="$vuetify.breakpoint.mdAndUp ? 'width: 80vw;' : ''">
-        <div class="call-button" :style="$vuetify.breakpoint.mdAndUp ? 'width: 50vw;' : 'width: 89vw;'" >
-          <a href="mailto:info@squadom.hr">
-            <span>
-              REZERVIRAJTE TURU!
+        <div class="info-container">
+          <div class="call-button" :style="$vuetify.breakpoint.mdAndUp ? 'width: 50vw;' : 'width: 89vw;'" >
+            <a href="mailto:info@squadom.hr">
+              <span>
+                REZERVIRAJTE TURU!
+              </span>
+            </a>
+          </div>
+          <div class="text-area" :style="$vuetify.breakpoint.mdAndUp ? 'width: 50vw;' : 'width: 89vw;'">
+            <span class="ma-3" style="width: 100%; text-align: justify;" v-html="this.texts[this.photo_number] || ''">
             </span>
-          </a>
-        </div>
-        <div class="text-area" :style="$vuetify.breakpoint.mdAndUp ? 'width: 50vw;' : 'width: 89vw;'">
-          <span class="ma-3" style="width: 100%; text-align: justify;" v-html="this.texts[this.photo_number] || ''">
-          </span>
+          </div>
         </div>
       </v-row>
     </v-col>
@@ -62,42 +64,42 @@
     <v-col>
       <v-row :class="`mx-auto`" :style="$vuetify.breakpoint.mdAndUp ? 'max-width: 650px;' : ''">
         <v-col>
-          <v-row justify="space-around" align-content="stretch">
+          <v-row justify="center" align-content="center">
             <v-img v-if="$vuetify.breakpoint.smAndUp"
               src="sound_off.svg"
               class="mr-3"
-              :style="`height: 30px; margin-top: 14px; text-align: center; ${this.isSoundEnabled ? 'filter: invert(43%) sepia(33%) saturate(842%) hue-rotate(73deg) brightness(99%) contrast(89%);' : ''}`"
+              :style="`cursor: pointer; height: 30px; margin-top: 14px; text-align: center; ${this.isSoundEnabled ? 'filter: invert(43%) sepia(33%) saturate(842%) hue-rotate(73deg) brightness(99%) contrast(89%);' : ''}`"
               contain
               
               @click="this.toggleSound"
             />    
-            <v-flex style="text-align: center;">
-              <v-btn :color="this.video_number === 0 ? 'primary' : 'white'" @click="() => { this.video_number = 0; }" class="rounded-btn" light rounded>
+            <v-flex style="text-align: center; max-width: 120px;">
+              <v-btn :color="this.video_number === 0 ? 'primary' : 'white'" @click="() => { this.video_number = 0; this.sendGAVideoEvent('Lokacija'); }" class="rounded-btn" light rounded>
                   Lokacija
               </v-btn>
             </v-flex>
-            <v-flex style="text-align: center;">
-              <v-btn :color="this.video_number === 1 ? 'primary' : 'white'" @click="() => { this.video_number = 1; }" class="rounded-btn" light rounded>
+            <v-flex style="text-align: center; max-width: 120px;">
+              <v-btn :color="this.video_number === 1 ? 'primary' : 'white'" @click="() => { this.video_number = 1; this.sendGAVideoEvent('Rute'); }" class="rounded-btn" light rounded>
                   Rute
               </v-btn>
             </v-flex>
-            <v-flex style="text-align: center;">
-              <v-btn :color="this.video_number === 2 ? 'primary' : 'white'" @click="() => { this.video_number = 2; }" class="rounded-btn" light rounded>
+            <v-flex style="text-align: center; max-width: 120px;">
+              <v-btn :color="this.video_number === 2 ? 'primary' : 'white'" @click="() => { this.video_number = 2; this.sendGAVideoEvent('Vozila'); }" class="rounded-btn" light rounded>
                   Vozila
               </v-btn>
             </v-flex>
-            <v-flex style="text-align: center;">
-              <v-btn :color="this.video_number === 3 ? 'primary' : 'white'" @click="() => { this.video_number = 3; }" class="rounded-btn" light rounded>
+            <v-flex style="text-align: center; max-width: 120px;">
+              <v-btn :color="this.video_number === 3 ? 'primary' : 'white'" @click="() => { this.video_number = 3; this.sendGAVideoEvent('Oprema'); }" class="rounded-btn" light rounded>
                   Oprema
               </v-btn>
             </v-flex>
-            <v-flex style="text-align: center;">
-              <v-btn :color="this.video_number === 4 ? 'primary' : 'white'" @click="() => { this.video_number = 4; }" class="rounded-btn" light rounded>
+            <v-flex style="text-align: center; max-width: 120px;">
+              <v-btn :color="this.video_number === 4 ? 'primary' : 'white'" @click="() => { this.video_number = 4; this.sendGAVideoEvent('Vidikovci'); }" class="rounded-btn" light rounded>
                   Vidikovci
               </v-btn>
             </v-flex>
-            <v-flex style="text-align: center;">
-              <v-btn :color="this.video_number === 5 ? 'primary' : 'white'" @click="() => { this.video_number = 5; }"  class="rounded-btn" light rounded>
+            <v-flex style="text-align: center; max-width: 120px;">
+              <v-btn :color="this.video_number === 5 ? 'primary' : 'white'" @click="() => { this.video_number = 5; this.sendGAVideoEvent('Opustanje'); }"  class="rounded-btn" light rounded>
                   Opustanje
               </v-btn>
             </v-flex>
@@ -113,49 +115,49 @@
     <v-col>
       <v-row :class="`mx-auto`" :style="$vuetify.breakpoint.mdAndUp ? 'max-width: 650px;' : ''">
         <v-col>
-          <v-row justify="space-around" align-content="center">
-            <v-flex style="text-align: center;">
-              <v-btn :color="this.photo_number === 0 ? 'primary' : 'white'" @click="() => { this.photo_number = 0; }" class="rounded-btn" light rounded>
+          <v-row justify="center" align-content="center">
+            <v-flex style="text-align: center; max-width: 120px;">
+              <v-btn :color="this.photo_number === 0 ? 'primary' : 'white'" @click="() => { this.photo_number = 0; this.sendGAPhotoEvent('Avanture'); }" class="rounded-btn" light rounded>
                 Avanture
               </v-btn>
             </v-flex>
-            <v-flex style="text-align: center;">
-              <v-btn :color="this.photo_number === 1 ? 'primary' : 'white'" @click="() => { this.photo_number = 1; }" class="rounded-btn" light rounded>
+            <v-flex style="text-align: center; max-width: 120px;">
+              <v-btn :color="this.photo_number === 1 ? 'primary' : 'white'" @click="() => { this.photo_number = 1; this.sendGAPhotoEvent('Lokacija'); }" class="rounded-btn" light rounded>
                 Lokacija
               </v-btn>
               </v-flex>
-            <v-flex style="text-align: center;">
-              <v-btn :color="this.photo_number === 2 ? 'primary' : 'white'" @click="() => { this.photo_number = 2; }"  class="rounded-btn" light rounded>
+            <v-flex style="text-align: center; max-width: 120px;">
+              <v-btn :color="this.photo_number === 2 ? 'primary' : 'white'" @click="() => { this.photo_number = 2; this.sendGAPhotoEvent('Vozila'); }"  class="rounded-btn" light rounded>
                 Vozila
               </v-btn>
             </v-flex>
-            <v-flex style="text-align: center;">
-              <v-btn :color="this.photo_number === 3 ? 'primary' : 'white'" @click="() => { this.photo_number = 3; }"  class="rounded-btn" light rounded>
+            <v-flex style="text-align: center; max-width: 120px;">
+              <v-btn :color="this.photo_number === 3 ? 'primary' : 'white'" @click="() => { this.photo_number = 3; this.sendGAPhotoEvent('Opuštanje'); }"  class="rounded-btn" light rounded>
                 Opuštanje
               </v-btn>
             </v-flex>
-            <v-flex style="text-align: center;">
-              <v-btn :color="this.photo_number === 4 ? 'primary' : 'white'" @click="() => { this.photo_number = 4; }" class="rounded-btn" light rounded>
+            <v-flex style="text-align: center; max-width: 120px;">
+              <v-btn :color="this.photo_number === 4 ? 'primary' : 'white'" @click="() => { this.photo_number = 4; this.sendGAPhotoEvent('O nama'); }" class="rounded-btn" light rounded>
                 O nama
               </v-btn>
             </v-flex>
-            <v-flex style="text-align: center;">
-              <v-btn :color="this.photo_number === 5 ? 'primary' : 'white'" @click="() => { this.$router.push('/detail/price') }" class="rounded-btn" light rounded>
+            <v-flex style="text-align: center; max-width: 120px;">
+              <v-btn :color="this.photo_number === 5 ? 'primary' : 'white'" @click="() => { this.sendGAPhotoEvent('Cjenik'); this.$router.push('/detail/price') }" class="rounded-btn" light rounded>
                 Cjenik
               </v-btn>
             </v-flex>
-            <v-flex style="text-align: center;">
-              <v-btn :color="this.photo_number === 6 ? 'primary' : 'white'" @click="() => { this.photo_number = 6; }" class="rounded-btn" light rounded>
+            <v-flex style="text-align: center; max-width: 120px;">
+              <v-btn :color="this.photo_number === 6 ? 'primary' : 'white'" @click="() => { this.photo_number = 6; this.sendGAPhotoEvent('Uvjeti'); }" class="rounded-btn" light rounded>
                 Uvjeti
               </v-btn>
             </v-flex>
-            <v-flex style="text-align: center;">
-              <v-btn :color="this.photo_number === 7 ? 'primary' : 'white'" @click="() => { this.photo_number = 7; }" class="rounded-btn" light rounded>
+            <v-flex style="text-align: center; max-width: 120px;">
+              <v-btn :color="this.photo_number === 7 ? 'primary' : 'white'" @click="() => { this.photo_number = 7; this.sendGAPhotoEvent('Rezervacije'); }" class="rounded-btn" light rounded>
                 Rezervacije
               </v-btn>
             </v-flex>
-            <v-flex style="text-align: center;">
-              <v-btn :color="this.photo_number === 8 ? 'primary' : 'white'" @click="() => { this.photo_number = 8; }" class="rounded-btn" light rounded>
+            <v-flex style="text-align: center; max-width: 120px;">
+              <v-btn :color="this.photo_number === 8 ? 'primary' : 'white'" @click="() => { this.photo_number = 8; this.sendGAPhotoEvent('Kontakt'); }" class="rounded-btn" light rounded>
                 Kontakt
               </v-btn>
             </v-flex>
@@ -204,13 +206,6 @@ import { Vue, Component, Action, namespace, Getter } from 'nuxt-property-decorat
 
     created () {
       if (process.client) {
-          // window.addEventListener('wheel', this.onScroll);
-
-          // window.addEventListener("touchstart", this.handleTouchStart, false);
-          // window.addEventListener("touchend", this.handleTouchEnd, false);
-          // window.addEventListener("touchmove", this.handleTouchMove, false);
-
-          // window.addEventListener("touchcancel", this.handleTouchCancel, false);
 
           // set on scroll
           window.addEventListener('scroll', this.detectScrollMode);
@@ -238,15 +233,38 @@ import { Vue, Component, Action, namespace, Getter } from 'nuxt-property-decorat
     }
 
     mounted() {
+      
+
       // @ts-ignore
       this.fetch();
 
       if (process.client) {
+        // @ts-ignore
+        this.$gtag.pageview('/');
+
         this.$store.commit('initializeSound');
         setTimeout(() => {
           this.playSound();
         }, 1500)
       }
+    }
+
+    sendGAPhotoEvent(ename: string) {
+      // @ts-ignore
+      this.$gtag.event('click', {
+        'event_category': 'photo-btn',
+        'event_label': ename,
+        'value': 0
+      })
+    }
+
+    sendGAVideoEvent(ename: string) {
+      // @ts-ignore
+      this.$gtag.event('click', {
+        'event_category': 'video-btn',
+        'event_label': ename,
+        'value': 0
+      })
     }
 
     detectScrollMode() {
@@ -278,6 +296,7 @@ import { Vue, Component, Action, namespace, Getter } from 'nuxt-property-decorat
     playSound() {
       if (this.isSoundEnabled && !this.audio) { 
         this.audio = new Audio(require('@/assets/sounds/v1.mp3'));
+        this.audio.loop = true;
         this.audio.play();
       } else {
         if (this.audio) {

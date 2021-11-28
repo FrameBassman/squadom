@@ -11,12 +11,14 @@
         <v-row>
           <v-col>
             <v-flex style="text-align: center;">
-              <v-btn color="primary" style="margin-top: 350px;" @click="() => { this.$router.push('/'); }" class="rounded-btn" light rounded>
-                Back
+              <v-btn color="primary" :style="'font-size: 14px; '+($vuetify.breakpoint.mdAndUp ? 'margin-top: 340px;' : 'margin-top: 18vh;')" @click="() => { this.$router.push('/'); }" class="rounded-btn" light rounded>
+                Cjenik
               </v-btn>
             </v-flex>
             <v-row :class="`mx-auto`" justify="center" :style="$vuetify.breakpoint.mdAndUp ? 'width: 100vw;' : ''">
-              <div class="text-area-page" :style="$vuetify.breakpoint.mdAndUp ? 'width: 80vw;' : 'width: 90vw;'">
+              <div class="text-area-page" :style="$vuetify.breakpoint.mdAndUp ? 
+              'width: 80vw; top: 400px; max-height: calc(100% - 500px);' : 
+              'width: 90vw; top: 26vh; max-height: 70vh;'">
                 <span class="ma-3" style="width: 100%; text-align: center;" 
                   v-html="pages[$route.params.id].content_mobile">
                 </span>
@@ -36,6 +38,11 @@ import { Vue, Component, Action, namespace, Getter } from 'nuxt-property-decorat
   export default class DetailPage extends Vue {
     data() {
       return require("static/specs.json");
+    }
+
+    mounted() {
+      // @ts-ignore
+      this.$gtag.pageview('/detail/price');
     }
   }
 
