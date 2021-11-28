@@ -22,7 +22,7 @@ export default {
   target: 'static',
 
   generate: {
-    routes: ['/lokacija/blablabla', '/lokacija/y786t']
+    routes: ['/detail/price', '/detail/contacts']
   },
 
   static: {
@@ -46,11 +46,16 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    '@nuxtjs/google-analytics',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
   ],
+
+  googleAnalytics: {
+    id: 'G-HMFF9YRREJ'
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -73,5 +78,20 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    devMiddleware: {
+      headers: {
+        'Cache-Control': 'no-store',
+        Vary: '*'
+      }
+    },
+    extend(config, ctx) {
+      config.module.rules.push({
+        test: /\.(ogg|mp3|wav|mpe?g)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]'
+        }
+      })
+    }
   }
 }

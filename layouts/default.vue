@@ -22,12 +22,15 @@
             <v-icon>mdi-filter</v-icon>
           </v-btn> -->
 
-          <v-btn icon class="mr-2 mt-3">
+          <v-btn icon class="mr-2 mt-3" @click="toggleSound">
             <v-img
               v-if="!drawer"
               src="sound_off.svg"
               style="height: 30px; text-align: center;"
               contain
+
+              :style="`height: 30px; margin-top: 14px; text-align: center; ${this.isSoundEnabled ? 
+              'filter: invert(43%) sepia(33%) saturate(842%) hue-rotate(73deg) brightness(99%) contrast(89%);' : ''}`"
             />  
           </v-btn>
         </v-app-bar>
@@ -56,7 +59,7 @@
                   <v-flex xs="3">
                     <a href="https://www.instagram.com/squadom.hr/">
                       <v-img 
-                        src="instagram.svg"
+                        src="/instagram.svg"
                         style="width: 60x; height: 60px;"
                         contain
                       />
@@ -65,7 +68,7 @@
                   <v-flex xs="3">
                     <a href="https://www.facebook.com/squadom.hr">
                       <v-img 
-                        src="fb.svg"
+                        src="/fb.svg"
                         style="width: 60x; height: 60px;"
                         contain
                       />
@@ -73,14 +76,14 @@
                   </v-flex>
                   <v-flex xs="3">
                     <v-img
-                      src="youtube.svg"
+                      src="/youtube.svg"
                       style="width: 60x; height: 60px;"
                       contain
                     />
                   </v-flex>
                   <v-flex xs="3">
                     <v-img
-                      src="trip.svg"
+                      src="/trip.svg"
                       style="width: 60x; height: 60px;"
                       contain
                     />
@@ -104,7 +107,7 @@
                   <v-col style="position: relative; min-width: 480px;" xs="6" sm="6" md="6" lg="6" xl="6">
                     <NuxtLink to="/">
                       <v-img 
-                        src="logo.svg"
+                        src="/logo.png"
                         :style="`width: ${$vuetify.breakpoint.smAndUp ? '500px' : ($vuetify.breakpoint.width-80)+'px'}; 
                         height: 174px; ${$vuetify.breakpoint.smAndUp ? 'position: absolute; left: 20px; top: 0;' : 
                         'position: relative; margin: 0 auto;'}`"
@@ -113,25 +116,25 @@
                     </NuxtLink>
                     <a href="https://www.instagram.com/squadom.hr/" v-if="$vuetify.breakpoint.smAndUp">
                       <v-img 
-                        src="instagram.svg"
+                        src="/instagram.svg"
                         style="width: 30x; height: 30px; position: absolute; left: 64px; top: 27px;"
                         contain
                       />
                     </a>
                     <a href="https://www.facebook.com/squadom.hr" v-if="$vuetify.breakpoint.smAndUp">
                       <v-img 
-                        src="fb.svg"
+                        src="/fb.svg"
                         style="width: 30x; height: 30px; position: absolute; left: 98px; top: 27px;"
                         contain
                       />
                     </a>
                     <v-img v-if="$vuetify.breakpoint.smAndUp"
-                      src="youtube.svg"
+                      src="/youtube.svg"
                       style="width: 30x; height: 30px; position: absolute; left: 132px; top: 27px;"
                       contain
                     />
                     <v-img v-if="$vuetify.breakpoint.smAndUp"
-                      src="trip.svg"
+                      src="/trip.svg"
                       style="width: 30x; height: 30px; position: absolute; left: 166px; top: 27px;"
                       contain
                     />
@@ -139,7 +142,7 @@
                   <v-col xs="6" sm="6" md="6" lg="6" xl="6" :style="$vuetify.breakpoint.width > 1630 ? 'margin-top: 80px;' : 'margin-top: '+($vuetify.breakpoint.smAndUp ? '140px;' : '-30px;')">
                     <a href="mailto:info@squadom.hr">
                       <v-img 
-                        src="label_white.svg"
+                        src="/label_white.png"
                         style="height: 57px;"
                         contain
                       />
@@ -162,7 +165,8 @@ export default {
       fixed: false,
       title: 'Squadom.hr',
       drawer: false,
-      group: null
+      group: null,
+      audio: null
     }
   },
 
@@ -172,9 +176,32 @@ export default {
       },
   },
 
+  computed: {
+    isSoundEnabled() {
+      return this.$store.state.isSoundEnabled;
+    }
+  },
+
   methods: {
+    toggleSound() {
+      this.$store.commit('toggleSound');
+      this.playSound();
+    },
+
+    playSound() {
+      if (this.isSoundEnabled && !this.audio) { 
+        this.audio = new Audio(require('@/assets/sounds/v1.mp3'));
+        this.audio.play();
+      } else {
+        if (this.audio) {
+          this.audio.pause();
+          this.audio = null;
+        }
+      }
+    },
+
     onScroll (e) {
-      if (e.deltaY > 0 && this.$router.currentRoute.name !== 'lokacija') {
+      if (e.deltaY > 0 && this.$router.currentRoute.name !== 'detail') {
         this.$router.push('lokacija')
       } else if (e.deltaY < 0 && 
           this.$router.currentRoute.name !== 'index' && 
@@ -224,6 +251,7 @@ export default {
 
   created () {
       if (process.client) {
+
           // window.addEventListener('wheel', this.onScroll);
 
           // window.addEventListener("touchstart", this.handleTouchStart, false);
@@ -240,7 +268,11 @@ export default {
   },
 
   destroyed () {
-      if (process.client) { 
+      if (process.client) {
+        if (this.audio) {
+          this.audio.pause();
+          this.audio = null;
+        }
           // window.removeEventListener('wheel', this.onScroll);
 
           // window.addEventListener("touchstart", this.handleTouchStart, false);
@@ -274,6 +306,40 @@ export default {
     height: 20px;
   }
 
+  .call-button {
+    @media (min-width: 992px) and (max-width: 1500px) {
+      bottom: 45vh;
+    }
+    @media (min-width: 768px) and (max-width: 991px) {
+      bottom: 50vh;
+    }
+    @media (min-width: 561px) and (max-width: 767px) {
+      bottom: 45vh;
+    }
+    @media (max-width: 560px) {
+      bottom: 65vh;
+    }
+    bottom: 35vh;
+    height: 50px;
+    background-color: rgba(255, 115, 0, 0.781);
+    position: fixed;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    vertical-align: middle;
+
+    & a {
+      color: white !important;
+      cursor: pointer;
+      text-decoration: none;
+      pointer-events: all;
+    }
+  }
+
   .text-area {
     bottom: 200px;
     max-height: 50%;
@@ -289,6 +355,42 @@ export default {
     & a {
       pointer-events: all;
       color: lightblue !important;
+    }
+  }
+
+  .text-area-page {
+    top: 400px;
+    max-height: calc(100% - 450px);
+    overflow-y: scroll;
+    background: transparent;
+    position: fixed;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    font-weight: normal;
+
+    & p {
+      color: white;
+      font-size: 18px;
+      font-weight: normal;
+    }
+
+    & a {
+      pointer-events: all;
+      color: lightblue !important;
+    }
+
+    & h {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    & h1 {
+      align-items: center;
+      font-size: 20px;
+      font-weight: normal;
+      text-decoration: underline;
     }
   }
 

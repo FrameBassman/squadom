@@ -1,0 +1,11 @@
+{
+    "pages": {
+        "price": {
+            "header": "CJENIK",
+            "description": "Prices",
+            "content": "<table><tr><td rowspan=\"2\">Osnovne usluge</td><td colspan=\"2\">1 osoba / 1 quad</td><td colspan=\"2\">2 osobe / 1 quad</td></tr><tr><td>HRK</td><td>EUR</td><td>HRK</td><td>EUR</td></tr><tr><td>Vođena quad tura (90 min)</td><td>500kn</td><td>65€</td><td>600kn</td><td>80€</td></tr><tr><td>Vođena quad tura (120 min)</td><td>600kn</td><td>80€</td><td>700kn</td><td>90€</td></tr><tr><td>Vođena quad tura (180 min)</td><td>800,00 kn</td><td>105€</td><td>900kn</td><td>120€</td></tr><tr></tr><tr><td>Dodatne opcije</td><td>HRK</td><td>EUR</td><td></td><td></td></tr><tr><td>Prostor za slobodno roštiljanje (3 sata)</td><td>300kn</td><td>40€</td><td></td><td></td></tr><tr><td>Ručak u prirodi (catering) po osobi</td><td>110kn</td><td>40€</td><td></td><td></td></tr><tr><td>Profesionalno fotografiranje</td><td>110kn</td><td>40€</td><td></td><td></td></tr><tr></tr><tr><td>Cijene su izražene s PDV-om.</td></tr><tr><td>U cijenu vođene ture uključena je usluga vođenja, kaciga, potkapa, boca vode, trošak goriva i održavanja vozila.</td></tr><tr></tr><tr><td>Vrijedi od 01.10.2021.</td></tr></table>",
+
+            "content_mobile": "<h>Osnovne usluge</h><br><h1>Vođena quad tura (90 min)</h1><br>1 osoba / 1 quad - 500kn | 65€<br>2 osobe / 1 quad - 600kn | 80€<br><h1>Vođena quad tura (120 min)</h1>1 osoba / 1 quad - 600kn | 80€<br>2 osobe / 1 quad - 700kn | 90€<br><h1>Vođena quad tura (180 min)</h1><br>1 osoba / 1 quad - 800,00 kn | 105€</br>2 osobe / 1 quad - 900kn | 120€<br><h>Dodatne opcije</h><br><h1>Prostor za slobodno roštiljanje (3 sata)</h1><br>1 osoba / 1 quad - 300kn | 40€<br><h1>Ručak u prirodi (catering) po osobi</h1><br>1 osoba / 1 quad - 110kn | 15€<br><h1>Profesionalno fotografiranje</h1><br>1 osoba / 1 quad - 110kn | 15€<br><h1>Cijene su izražene s PDV-om.<h1><br><h>U cijenu vođene ture uključena je usluga vođenja, kaciga, potkapa, boca vode, trošak goriva i održavanja vozila.</h><br><h>Vrijedi od 01.10.2021.</h>"
+        }
+    }
+}

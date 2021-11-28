@@ -6,19 +6,16 @@
       style="height: 100vh;"
       muted="false"
       autoplay="true"
-      preload="true"
-      plays-when="canplaythrough">
+      preload="auto"
+      playsWhen="canplay">
     </video-background> -->
     <v-carousel hide-delimiters height="100vh" v-model="video_number" :show-arrows="$vuetify.breakpoint.smAndUp">
       <v-carousel-item v-for="(item, vi) in videos"
         :key="vi">
-        <video-background
-          :src="`/video/${item}.mp4`"
-          style="height: 100vh;"
-          muted="false"
-          autoplay="true"
-          preload="true"
-          plays-when="canplaythrough">
+        <video-background :id="`video_${item}`"
+          :src="`/video/${item + '-' + season()}.mp4?nocache=true`"
+          :poster="`/video/${item + '-' + season()}.jpg?nocache=true`"
+          style="height: 100vh;">
         </video-background>
       </v-carousel-item>
     </v-carousel>
@@ -34,13 +31,22 @@
         v-for="(item, i) in photos"
         :key="i"
         :src="`/photo/${item+($vuetify.breakpoint.mdAndDown ? '-mob' : '')}.jpg`"
-      ></v-carousel-item>
+        :lazy-src="`/photo/${item+'-blurry'+($vuetify.breakpoint.mdAndDown ? '-mob' : '')}.jpg`"
+      >
+      </v-carousel-item>
     </v-carousel>
   </v-row>
 
   <v-row :class="`fadeclass${this.scrolledToBottom && this.texts[this.photo_number] ? '--visible' : ''}`" style="pointer-events: none;">
     <v-col>
       <v-row :class="`mx-auto`" justify="center" :style="$vuetify.breakpoint.mdAndUp ? 'width: 80vw;' : ''">
+        <div class="call-button" :style="$vuetify.breakpoint.mdAndUp ? 'width: 50vw;' : 'width: 89vw;'" >
+          <a href="mailto:info@squadom.hr">
+            <span>
+              REZERVIRAJTE TURU!
+            </span>
+          </a>
+        </div>
         <div class="text-area" :style="$vuetify.breakpoint.mdAndUp ? 'width: 50vw;' : 'width: 89vw;'">
           <span class="ma-3" style="width: 100%; text-align: justify;" v-html="this.texts[this.photo_number] || ''">
           </span>
@@ -60,8 +66,10 @@
             <v-img v-if="$vuetify.breakpoint.smAndUp"
               src="sound_off.svg"
               class="mr-3"
-              style="height: 30px; margin-top: 14px; text-align: center;"
+              :style="`height: 30px; margin-top: 14px; text-align: center; ${this.isSoundEnabled ? 'filter: invert(43%) sepia(33%) saturate(842%) hue-rotate(73deg) brightness(99%) contrast(89%);' : ''}`"
               contain
+              
+              @click="this.toggleSound"
             />    
             <v-flex style="text-align: center;">
               <v-btn :color="this.video_number === 0 ? 'primary' : 'white'" @click="() => { this.video_number = 0; }" class="rounded-btn" light rounded>
@@ -132,7 +140,7 @@
               </v-btn>
             </v-flex>
             <v-flex style="text-align: center;">
-              <v-btn :color="this.photo_number === 5 ? 'primary' : 'white'" @click="() => { this.photo_number = 5; }" class="rounded-btn" light rounded>
+              <v-btn :color="this.photo_number === 5 ? 'primary' : 'white'" @click="() => { this.$router.push('/detail/price') }" class="rounded-btn" light rounded>
                 Cjenik
               </v-btn>
             </v-flex>
@@ -160,93 +168,30 @@
  </v-col>
 </template>
 
-<script>
+<script lang="ts">
+import { Vue, Component, Action, namespace, Getter } from 'nuxt-property-decorator';
 
-  export default {
+@Component({ layout: 'default' })
+  export default class indexVue extends Vue {
+    text = 'center'
+    photo_number = 0
+    video_number = 0
+    scrolledToTop = true
+    scrolledToBottom = false
+    audio: any = null
+
+    @Action('fetchData') fetch: any
+    // @ts-ignore
+    @Getter('pages') public pages: any[]
+
     data () {
       return {
-        text: 'center',
-        photo_number: 0,
-        video_number: 0,
-        scrolledToTop: true,
-        scrolledToBottom: true,
         texts: {
-          1: `Squadom avanture počinju u Juranščini (Grad Zlatar, Krapinsko-zagorska županija). Polazište se nalazi na privatnom imanju s osiguranim parkirnim mjestom, nedaleko od Zagreba (oko 60 km) i Varaždina (oko 50 km). Lokacija na karti može se <a href="https://goo.gl/maps/KuSersySXDrcHWbV9">preuzeti ovdje</a>.`,
-          2: `Garantiramo kvalitetu, udobnost i sigurnost! Ture se vode na kvalitetnim, udobnim i sigurnim vozilima uglednog kanadsko-američkog proizvođača BRP. Modeli koje trenutno nudimo su Can-am Outlander Max DPS 450 i Can-am Outlander Max DPS 570. Sva vozila su predviđena za dvije osobe – vozača i suvozača.`,
-          5: `<table border-spacing="15px">
-            <tr>
-              <td rowspan="2">Osnovne usluge</td>
-              <td colspan="2">1 osoba / 1 quad</td>
-              <td colspan="2">2 osobe / 1 quad</td>
-            </tr>
-            <tr>
-              <td>HRK</td>
-              <td>EUR</td>
-              <td>HRK</td>
-              <td>EUR</td>
-            </tr>
-            <tr>
-              <td>Vođena quad tura (90 min)</td>
-              <td>500,00 kn</td>
-              <td>65,00 €</td>
-              <td>600,00 kn</td>
-              <td>80,00 €</td>
-            </tr>
-            <tr>
-              <td>Vođena quad tura (120 min)</td>
-              <td>600,00 kn</td>
-              <td>80,00 €</td>
-              <td>700,00 kn</td>
-              <td>90,00 €</td>
-            </tr>
-            <tr>
-              <td>Vođena quad tura (180 min)</td>
-              <td>800,00 kn</td>
-              <td>105,00 €</td>
-              <td>900,00 kn</td>
-              <td>120,00 €</td>
-            </tr>
-            <tr></tr>
-            <tr>
-              <td>Dodatne opcije</td>
-              <td>HRK</td>
-              <td>EUR</td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>Prostor za slobodno roštiljanje (3 sata)</td>
-              <td>300,00 kn</td>
-              <td>40,00 €</td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>Ručak u prirodi (catering) po osobi</td>
-              <td>110,00 kn</td>
-              <td>40,00 €</td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>Profesionalno fotografiranje</td>
-              <td>110,00 kn</td>
-              <td>40,00 €</td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr></tr>
-            <tr>
-              <td colspan="5">Cijene su izražene s PDV-om.</td>
-            </tr>
-            <tr>
-              <td colspan="5">U cijenu vođene ture uključena je usluga vođenja, kaciga, potkapa, boca vode, trošak goriva i održavanja vozila.</td>
-            </tr>
-            <tr></tr>
-            <tr>
-              <td colspan="5">Vrijedi od 01.10.2021.</td>
-            </tr>
-          </table>`
+          0: `<b>DO VRHA IVANŠČICE (1060 m)</b> - dvosatna avantura dinamičnim šumskim putevima s pauzom na najvišem vrhu Ivanščice za one koji žele samostalno provesti dio vremena na najvišem vrhu Hrvatskog zagorja ili <b>OD JUGA DO SJEVERA</b> - trosatna avantura na Ivanščici uz nezaboravan doživljaj šume u svako godišnje doba za istinske zaljubljenike u prirodu i prave avanturiste ili <b>OKO ZLATARA</b> - kraća avantura (1,5 h) pitomim brežuljcima podno južnih obronaka Ivanščice za potpune početnike ako nisu spremni za gorske staze ili pak potpuno INDIVIDUALNA AVANTURA (na upit).`,
+          1: `Squadom avanture počinju i završavaju u Juranščini (Grad Zlatar), na privatnom imanju s osiguranim parkirnim mjestom. Sama lokacija nalazi se na udaljenosti oko 60 km od Zagreba i oko 50 km od Varaždina, a točan položaj može se vidjeti <a href="https://goo.gl/maps/KuSersySXDrcHWbV9">na karti</a>.`,
+          2: `Ture se vode kvalitetnim, udobnim i sigurnim vozilima uglednog kanadsko-američkog proizvođača BRP. Modeli koje trenutno nudimo su CAN-AM OUTLANDER MAX DPS 450 i CAN-AM OUTLANDER MAX DPS 570. Sva vozila su predviđena za dvije osobe – vozača i suvozača.`,
+          4: `squadom j.d.o.o. | Juranščina 12 f, 49250 Zlatar | OIB: 15351327278 | PDV ID: HR15351327278 | IBAN: HR1423400091111101124 | Privredna banka Zagreb d.d. | SWIFT: PBZGHR2X | Temeljni kapital: 7.800,00 kn | Trgovački sud u Zagrebu | MBS: 081336648`,
+          
         },
         photos: [
           1, 2, 3, 4, 5, 6, 7, 8, 9
@@ -255,21 +200,7 @@
           1, 2, 3, 4, 5, 6
         ]
       }
-    },
-
-    methods: {
-      detectScrollMode() {
-        let topOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight <= document.documentElement.offsetHeight +50;
-        let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight / 2 > document.documentElement.offsetHeight +200;
-
-        this.scrolledToTop = topOfWindow
-        this.scrolledToBottom = bottomOfWindow
-
-        // console.log(Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight / 2)
-        // console.log(document.documentElement.offsetHeight + 100)
-        // console.log('')
-      }
-    },
+    }
 
     created () {
       if (process.client) {
@@ -286,10 +217,14 @@
           // init
           this.detectScrollMode();
       }
-    },
+    }
 
     destroyed () {
-        if (process.client) { 
+        if (process.client) {
+          if (this.audio) {
+            this.audio.pause();
+            this.audio = null;
+          }
             // window.removeEventListener('wheel', this.onScroll);
 
             // window.removeEventListener("touchstart", this.handleTouchStart, false);
@@ -300,6 +235,56 @@
 
             window.removeEventListener('scroll', this.detectScrollMode);
         }
+    }
+
+    mounted() {
+      // @ts-ignore
+      this.fetch();
+
+      if (process.client) {
+        this.$store.commit('initializeSound');
+        setTimeout(() => {
+          this.playSound();
+        }, 1500)
+      }
+    }
+
+    detectScrollMode() {
+        let topOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight <= document.documentElement.offsetHeight +50;
+        let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight / 2 > document.documentElement.offsetHeight +200;
+
+        this.scrolledToTop = topOfWindow
+        this.scrolledToBottom = bottomOfWindow
+
+        // console.log(Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight / 2)
+        // console.log(document.documentElement.offsetHeight + 100)
+        // console.log('')
+    }
+
+    season() {
+        const getSeason = (d:any) => Math.floor((d.getMonth() / 12 * 4)) % 4;
+        return ['winter', 'spring', 'summer', 'autumn'][getSeason(new Date())];
+    }
+
+    get isSoundEnabled() {
+      return this.$store.state.isSoundEnabled;
+    }
+
+    toggleSound() {
+      this.$store.commit('toggleSound');
+      this.playSound();
+    }
+
+    playSound() {
+      if (this.isSoundEnabled && !this.audio) { 
+        this.audio = new Audio(require('@/assets/sounds/v1.mp3'));
+        this.audio.play();
+      } else {
+        if (this.audio) {
+          this.audio.pause();
+          this.audio = null;
+        }
+      }
     }
   }
 
