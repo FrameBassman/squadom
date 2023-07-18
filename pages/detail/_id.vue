@@ -2,7 +2,7 @@
   <v-col>
     <v-row>
       <v-img
-        :src="`/photo/6.jpg`"
+        :src="`https://github.com/FrameBassman/squadom/raw/master/static/photo/6.jpg`"
         style="height: 100vh;"
         fit>
 

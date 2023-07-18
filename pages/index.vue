@@ -26,18 +26,18 @@
       :key="i"
       height="101vh"
       :id="`photo-id-${item}`"
-      :src="`/photo/${item+($vuetify.breakpoint.mdAndDown ? '-mob' : '')}.jpg?nocache=true`"
+      :src="`https://github.com/FrameBassman/squadom/raw/master/static/photo/${item+($vuetify.breakpoint.mdAndDown ? '-mob' : '')}.jpg?nocache=true`"
       :alt="`${photo_alts[item]}`"
-      :lazy-src="`/photo/${item+'-blurry'+($vuetify.breakpoint.mdAndDown ? '-mob' : '')}.jpg?nocache=true`"
+      :lazy-src="`https://github.com/FrameBassman/squadom/raw/master/static/photo/${item+'-blurry'+($vuetify.breakpoint.mdAndDown ? '-mob' : '')}.jpg?nocache=true`"
       fit>
     </v-img>
     <!-- <v-carousel hide-delimiters style="margin-top: 15px;"  v-model="photo_number" :show-arrows="$vuetify.breakpoint.smAndUp">
       <v-carousel-item
         v-for="(item, i) in photos"
         :key="i"
-        :src="`/photo/${item+($vuetify.breakpoint.mdAndDown ? '-mob' : '')}.jpg?nocache=true`"
+        :src="`https://github.com/FrameBassman/squadom/raw/master/static/photo/${item+($vuetify.breakpoint.mdAndDown ? '-mob' : '')}.jpg?nocache=true`"
         :alt="`${photo_alts[item]}`"
-        :lazy-src="`/photo/${item+'-blurry'+($vuetify.breakpoint.mdAndDown ? '-mob' : '')}.jpg?nocache=true`"
+        :lazy-src="`https://github.com/FrameBassman/squadom/raw/master/static/photo/${item+'-blurry'+($vuetify.breakpoint.mdAndDown ? '-mob' : '')}.jpg?nocache=true`"
       >
       </v-carousel-item>
     </v-carousel> -->
@@ -47,9 +47,9 @@
       <v-carousel-item
         v-for="(item, i) in photos"
         :key="i"
-        :src="`/photo/${item+($vuetify.breakpoint.mdAndDown ? '-mob' : '')}.jpg?nocache=true`"
+        :src="`https://github.com/FrameBassman/squadom/raw/master/static/photo/${item+($vuetify.breakpoint.mdAndDown ? '-mob' : '')}.jpg?nocache=true`"
         :alt="`${photo_alts[item]}`"
-        :lazy-src="`/photo/${item+'-blurry'+($vuetify.breakpoint.mdAndDown ? '-mob' : '')}.jpg?nocache=true`"
+        :lazy-src="`https://github.com/FrameBassman/squadom/raw/master/static/photo/${item+'-blurry'+($vuetify.breakpoint.mdAndDown ? '-mob' : '')}.jpg?nocache=true`"
       >
       </v-carousel-item>
     </v-carousel>
