@@ -12,7 +12,11 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Odvezi se u veličanstva prirode! Vožnja. Druženje. Zabava. Odmor.' },
-      { hid: 'keywords', name: 'keywords', content: 'vožnja quadovima, vožnja atv, atv ture, quad ture, extreme, offroad, avanturizam, planine, sport, odmor, zagorje, ivanscica, ivanščica, ivančica, vožnja, zabava, odmor, za dvoje, team building, priroda, vrijeme u prirodi, fotografiranje, snimanje dronom, hrana u prirodi, vožnja u prirodi, catering, catering u prirodi, ranč, selo, ruralni turizam, odmor u šumi, vožnja u šumi, vožnja u blatu, turistička tura, organizacija događaja, događaj u prirodi, noćna vožnja, vožnja po kiši, vožnja u grupi, grupna vožnja, izlet, izlet u prirodu, obiteljski izlet, prijateljski izlet, aktivni odmor, zabava na otvorenom, team building za tvrtke, aktivnosti u prirodi, vožnja quadom, rekreacija u prirodi, avantura u prirodi, cjelodnevni izlet, quad safari, atv safari, quad izlet, adventure program, vožnja s vodičem, vođena tura, offroad vožnja, vožnja 4x4, istraživanje okoline, vožnja za dvoje, adrenalinski turizam, kućice u prirodi, najam, kampiranje, najam prostora, najam prostora za proslave, najam prostora za rođendane, organizacija događaja, poklon bon za rođendan, poklon bon za vožnju, poklon za dvoje, prostor za tulume, privatne proslave, kuća za odmor, vikend kuća, vikend kuća za proslave, roštilj u prirodi, roštilj na otvorenom, roštilj u šumi, vatra u prirodi, druženje oko vatre, prostor za nastup, prostor za koncert, roštiljanje, šašlik, vegetarijanski roštilj, kamp u prirodi, smještaj kod Ivanščice, kamping, kamping resort, glamping, okolica Zagreba, okolica Varaždina, squadom, vožnja Canam, vožnja BRP, hrvatsko zagorje, krapinsko-zagorska županija, zlatar, grad zlatar, quadbike tura' }
+      { hid: 'keywords', name: 'keywords', content: '4x4, Ivanec, Ivanščica, Mađarska, Slovenija, Varaždin, Zagreb, aktivno, aktivnost, aktivnosti, atv, avantura, brp, building, can-am, canam, cfmoto, druženje, ekipa, extreme, fotograf, grad, gume, hlad, ideja, ivancica, ivanec, ivanščica ivanščica, izlet, kava, lepoglava, ljubav, lobor, mir, mirno, nebo, noć, obitelj, oblaci, odmor, offroad, okolica, opuštanje, osmijeh, outlander, party, pas, planina, planina,quad, planinarenje, planine, pogled, poklonbon, polaris, priroda, quad, rasvjeta, romantika, sljeme, snijeg, spokojno, staze, sunce, team tišina, tragove, tura, ture, ulice, varazdin, varaždin, vidikovac, vikend, visina, vodič, vožnja vožnja, vrh, zabava, zagorje, zima, zlatar, čaj, šuma' },
+      { hid: 'og:title', property: 'og:title', content: 'ATV gorske avanture na sjeveru Hrvatske' },
+      { hid: 'og:image', property: 'og:image', content: `/photo/1.jpg` },
+      { hid: 'og:description', property: 'og:description', content: 'Najbolja kava u šumi! - Quad ture, planinarenje u zagorju' },
+      { hid: 'og:keywords', property: 'og:keywords', content: '4x4, Ivanec, Ivanščica, Mađarska, Slovenija, Varaždin, Zagreb, aktivno, aktivnost, aktivnosti, atv, avantura, brp, building, can-am, canam, cfmoto, druženje, ekipa, extreme, fotograf, grad, gume, hlad, ideja, ivancica, ivanec, ivanščica ivanščica, izlet, kava, lepoglava, ljubav, lobor, mir, mirno, nebo, noć, obitelj, oblaci, odmor, offroad, okolica, opuštanje, osmijeh, outlander, party, pas, planina, planina,quad, planinarenje, planine, pogled, poklonbon, polaris, priroda, quad, rasvjeta, romantika, sljeme, snijeg, spokojno, staze, sunce, team tišina, tragove, tura, ture, ulice, varazdin, varaždin, vidikovac, vikend, visina, vodič, vožnja vožnja, vrh, zabava, zagorje, zima, zlatar, čaj, šuma' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -51,7 +55,31 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/i18n',
+    '@nuxtjs/robots',
   ],
+
+  i18n: {
+    locales: [
+      { code: 'en', iso: 'en-US', file: 'en-US.js', name: 'EN', dir: 'ltr' },
+      { code: 'hr', iso: 'hr-HR', file: 'hr-HR.js', name: 'HR', dir: 'ltr' },
+    ],
+    defaultLocale: 'hr',
+    strategy: 'no_prefix',
+    vueI18n: {
+      fallbackLocale: 'hr'
+    },
+    baseUrl: 'https://squadom.hr',
+    lazy: false,
+    langDir: 'lang/',
+  },
+
+  robots: () => {
+    return {
+      UserAgent: '*',
+      Disallow: '/'
+    }
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

@@ -25,8 +25,8 @@
           <v-btn icon class="mr-2 mt-3" @click="toggleSound">
             <v-img
               v-if="!drawer"
-              src="sound_off.svg"
-              style="height: 30px; text-align: center; cursor: pointer;"
+              :src="`sound_${this.isSoundEnabled ? 'on' : 'off'}.svg`"
+              style="width: 30px; height: 30px; text-align: center; cursor: pointer;"
               contain
 
               :style="`height: 30px; margin-top: 14px; text-align: center; ${this.isSoundEnabled ? 
@@ -75,11 +75,13 @@
                     </a>
                   </v-flex>
                   <v-flex xs="3">
-                    <v-img
-                      src="/youtube.svg"
-                      style="width: 60x; height: 60px;"
-                      contain
-                    />
+                    <a href="https://m.youtube.com/channel/UCOWU56lnG3BzJfx-CJ-qGcQ">
+                      <v-img
+                        src="/youtube.svg"
+                        style="width: 60x; height: 60px;"
+                        contain
+                      />
+                    </a>
                   </v-flex>
                   <v-flex xs="3">
                     <a href="https://www.tripadvisor.com/Attraction_Review-g1203043-d23205663-Reviews-Squadom_hr-Zlatar_Krapina_Zagorje_County_Central_Croatia.html">
@@ -130,11 +132,14 @@
                         contain
                       />
                     </a>
-                    <v-img v-if="$vuetify.breakpoint.smAndUp"
-                      src="/youtube.svg"
-                      style="width: 30x; height: 30px; position: absolute; left: 132px; top: 27px;"
-                      contain
-                    />
+                    <a href="https://m.youtube.com/channel/UCOWU56lnG3BzJfx-CJ-qGcQ"
+                    v-if="$vuetify.breakpoint.smAndUp">
+                      <v-img
+                        src="/youtube.svg"
+                        style="width: 30x; height: 30px; position: absolute; left: 132px; top: 27px;"
+                        contain
+                      />
+                    </a>
                     <a href="https://www.tripadvisor.com/Attraction_Review-g1203043-d23205663-Reviews-Squadom_hr-Zlatar_Krapina_Zagorje_County_Central_Croatia.html"
                     v-if="$vuetify.breakpoint.smAndUp">
                       <v-img
@@ -152,11 +157,27 @@
                         contain
                       />
                     </a>
+                    <div v-if="$vuetify.breakpoint.smAndUp" :style="`position: absolute; right: ${$vuetify.breakpoint.lgAndUp ? 25 : ($vuetify.breakpoint.mdAndUp ? 20 : 10)}vw; top: 27px;`">
+                      <a
+                        href="#"
+                        v-for="(locale, index) in availableLocales"
+                        :key="locale.code"
+                        @click.prevent.stop="$i18n.setLocale(locale.code)">
+                        <div :class="`lang_button${locale.code === $i18n.locale ? '--selected' : ''}`" :style="`right: ${index*40}px;`">
+                          {{ locale.name }}
+                        </div>
+                      </a>
+                    </div>
                   </v-col>
                 </v-row>
               </v-col>
             </v-row>
           </v-col>
+        </v-row>
+        <v-row>
+          <div v-if="this.scrolledToBottom" class="footer-area">
+             {{ $t('company') }} <a href="mailto:info@squadom.hr">info@squadom.hr</a> <a href="tel:+385976532252">+385 97 65 32 252</a> <br>{{ $t('footer_text') }}
+          </div>
         </v-row>
       </v-container>
     </v-main>
@@ -177,6 +198,10 @@ export default {
     }
   },
 
+  head () {
+    return this.$nuxtI18nHead()
+  },
+
   watch: {
       group () {
         this.drawer = false
@@ -186,6 +211,10 @@ export default {
   computed: {
     isSoundEnabled() {
       return this.$store.state.isSoundEnabled;
+    },
+
+    availableLocales () {
+      return this.$i18n.locales
     }
   },
 
@@ -329,6 +358,25 @@ export default {
     margin-right: 5px;
   }
 
+  .lang_button {
+    width: 30x;
+    height: 30px;
+    position: absolute;
+    background-color: white;
+    color: black;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    border-radius: 15px;
+    padding: 5px;
+
+    &--selected {
+      @extend .lang_button;
+      background-color: #388e3c;
+      color: white;
+    }
+  }
+
   .v-btn:not(.v-btn--round).v-size--default {
     height: 20px;
   }
@@ -367,14 +415,15 @@ export default {
   }
 
   .text-area {
-    max-height: 50%;
-    overflow-y: scroll;
+    max-height: 50vh;
     width: 58vw;
     background-color: #009c00d0;
-    display: flex;
+    // display: flex;
     border-radius: 20px;
-    align-items: center;
+    text-align: center;
     color: white;
+    padding: 15px;
+    margin-bottom: 1vh;
 
     /* hide scrollbar but allow scrolling */
     -ms-overflow-style: none; /* for Internet Explorer, Edge */
@@ -383,7 +432,11 @@ export default {
 
     & a {
       pointer-events: all;
-      color: lightblue !important;
+      color: yellow !important;
+    }
+
+    & table {
+      margin: 0 auto;
     }
   }
 
@@ -394,6 +447,35 @@ export default {
   .info-container {
     position: fixed;
     bottom: 200px;
+  }
+
+  .footer-area {
+    max-height: 8vh;
+    width: 100vw;
+    background-color: transparent; // #009c00d0;
+    bottom: 2vh;
+    left: 0;
+    border-radius: 0;
+    text-align: center;
+    color: white;
+    padding: 5px;
+    position: fixed;
+    font-size: 11px;
+    text-shadow: 1px 1px 2px black;
+
+    /* hide scrollbar but allow scrolling */
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll;
+
+    & a {
+      pointer-events: all;
+      color: yellow !important;
+    }
+
+    & table {
+      margin: 0 auto;
+    }
   }
 
   .text-area-page { 
