@@ -19,9 +19,8 @@
               <div class="text-area-page" :style="$vuetify.breakpoint.mdAndUp ? 
               'width: 80vw; top: 400px; max-height: calc(100% - 500px);' : 
               'width: 90vw; top: 26vh; max-height: 70vh;'">
-                <span class="ma-3" style="width: 100%; text-align: center;" 
-                  v-html="pages[$route.params.id].mobile_content">
-                </span>
+
+
               </div>
             </v-row>
           </v-col>
