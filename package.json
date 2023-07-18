@@ -9,19 +9,19 @@
     "generate": "nuxt-ts generate"
   },
   "dependencies": {
-    "@nuxt/typescript-runtime": "^2.0.1",
-    "@nuxtjs/i18n": "^7.2.0",
-    "@nuxtjs/robots": "^2.5.0",
-    "@vue/shared": "^3.2.23",
-    "core-js": "^3.8.2",
-    "nuxt": "^2.14.12",
-    "nuxt-property-decorator": "^2.9.1",
-    "vue-gtag": "^1.16.1",
-    "vue-responsive-video-background-player": "^1.2.1"
+    "@nuxt/typescript-runtime": "2.0.1",
+    "@nuxtjs/i18n": "7.2.0",
+    "@nuxtjs/robots": "2.5.0",
+    "@vue/shared": "3.2.23",
+    "core-js": "3.8.2",
+    "nuxt": "2.14.12",
+    "nuxt-property-decorator": "2.9.1",
+    "vue-gtag": "1.16.1",
+    "vue-responsive-video-background-player": "1.2.1"
   },
   "devDependencies": {
-    "@nuxt/types": "^2.14.12",
-    "@nuxt/typescript-build": "^2.0.4",
-    "@nuxtjs/vuetify": "^1.11.3"
+    "@nuxt/types": "2.14.12",
+    "@nuxt/typescript-build": "2.0.4",
+    "@nuxtjs/vuetify": "1.11.3"
   }
 }
