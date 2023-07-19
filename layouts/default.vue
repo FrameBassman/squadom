@@ -25,7 +25,7 @@
           <v-btn icon class="mr-2 mt-3" @click="toggleSound">
             <v-img
               v-if="!drawer"
-              :src="`sound_${this.isSoundEnabled ? 'on' : 'off'}.svg`"
+              :src="`https://github.com/FrameBassman/squadom/raw/master/static/sound_${this.isSoundEnabled ? 'on' : 'off'}.svg`"
               style="width: 30px; height: 30px; text-align: center; cursor: pointer;"
               contain
 
@@ -59,7 +59,7 @@
                   <v-flex xs="3">
                     <a href="https://www.instagram.com/squadom.hr/">
                       <v-img 
-                        src="/instagram.svg"
+                        src="https://github.com/FrameBassman/squadom/raw/master/static/instagram.svg"
                         style="width: 60x; height: 60px;"
                         contain
                       />
@@ -68,7 +68,7 @@
                   <v-flex xs="3">
                     <a href="https://www.facebook.com/squadom.hr">
                       <v-img 
-                        src="/fb.svg"
+                        src="https://github.com/FrameBassman/squadom/raw/master/static/fb.svg"
                         style="width: 60x; height: 60px;"
                         contain
                       />
@@ -77,7 +77,7 @@
                   <v-flex xs="3">
                     <a href="https://m.youtube.com/channel/UCOWU56lnG3BzJfx-CJ-qGcQ">
                       <v-img
-                        src="/youtube.svg"
+                        src="https://github.com/FrameBassman/squadom/raw/master/static/youtube.svg"
                         style="width: 60x; height: 60px;"
                         contain
                       />
@@ -86,7 +86,7 @@
                   <v-flex xs="3">
                     <a href="https://www.tripadvisor.com/Attraction_Review-g1203043-d23205663-Reviews-Squadom_hr-Zlatar_Krapina_Zagorje_County_Central_Croatia.html">
                       <v-img
-                        src="/trip.svg"
+                        src="https://github.com/FrameBassman/squadom/raw/master/static/trip.svg"
                         style="width: 60x; height: 60px;"
                         contain
                       />
@@ -111,7 +111,7 @@
                   <v-col style="position: relative; min-width: 480px;" xs="6" sm="6" md="6" lg="6" xl="6">
                     <NuxtLink to="/">
                       <v-img 
-                        src="/logo.png"
+                        src="https://github.com/FrameBassman/squadom/raw/master/static/logo.png"
                         :style="`cursor: pointer; width: ${$vuetify.breakpoint.smAndUp ? '500px' : ($vuetify.breakpoint.width-80)+'px'}; 
                         height: 174px; ${$vuetify.breakpoint.smAndUp ? 'position: absolute; left: 20px; top: 0;' : 
                         'position: relative; margin: 0 auto;'}`"
@@ -120,14 +120,14 @@
                     </NuxtLink>
                     <a href="https://www.instagram.com/squadom.hr/" v-if="$vuetify.breakpoint.smAndUp">
                       <v-img 
-                        src="/instagram.svg"
+                        src="https://github.com/FrameBassman/squadom/raw/master/static/instagram.svg"
                         style="width: 30x; height: 30px; position: absolute; left: 64px; top: 27px;"
                         contain
                       />
                     </a>
                     <a href="https://www.facebook.com/squadom.hr" v-if="$vuetify.breakpoint.smAndUp">
                       <v-img 
-                        src="/fb.svg"
+                        src="https://github.com/FrameBassman/squadom/raw/master/static/fb.svg"
                         style="width: 30x; height: 30px; position: absolute; left: 98px; top: 27px;"
                         contain
                       />
@@ -135,7 +135,7 @@
                     <a href="https://m.youtube.com/channel/UCOWU56lnG3BzJfx-CJ-qGcQ"
                     v-if="$vuetify.breakpoint.smAndUp">
                       <v-img
-                        src="/youtube.svg"
+                        src="https://github.com/FrameBassman/squadom/raw/master/static/youtube.svg"
                         style="width: 30x; height: 30px; position: absolute; left: 132px; top: 27px;"
                         contain
                       />
@@ -143,7 +143,7 @@
                     <a href="https://www.tripadvisor.com/Attraction_Review-g1203043-d23205663-Reviews-Squadom_hr-Zlatar_Krapina_Zagorje_County_Central_Croatia.html"
                     v-if="$vuetify.breakpoint.smAndUp">
                       <v-img
-                        src="/trip.svg"
+                        src="https://github.com/FrameBassman/squadom/raw/master/static/trip.svg"
                         style="width: 30x; height: 30px; position: absolute; left: 166px; top: 27px;"
                         contain
                       />
@@ -152,7 +152,7 @@
                   <v-col xs="6" sm="6" md="6" lg="6" xl="6" :style="$vuetify.breakpoint.width > 1630 ? 'margin-top: 80px;' : 'margin-top: '+($vuetify.breakpoint.smAndUp ? '140px;' : '-30px;')">
                     <a href="mailto:info@squadom.hr">
                       <v-img 
-                        src="/label_white.png"
+                        src="https://github.com/FrameBassman/squadom/raw/master/static/label_white.png"
                         style="height: 57px;"
                         contain
                       />
