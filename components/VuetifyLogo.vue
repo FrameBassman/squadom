@@ -2,7 +2,7 @@
   <img
     class="VuetifyLogo"
     alt="Vuetify Logo"
-    src="/vuetify-logo.svg"
+    src="https://github.com/FrameBassman/squadom/raw/master/static/vuetify-logo.svg"
   >
 </template>
 
