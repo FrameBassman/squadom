@@ -14,7 +14,7 @@
         :key="vi">
         <video-background :id="`video_${item}`"
           :src="`https://github.com/FrameBassman/squadom/raw/master/static/video/${item + '-' + season()}.mp4?nocache=true`"
-          :poster="`/video/${item + '-' + season()}.jpg?nocache=true`"
+          :poster="`https://github.com/FrameBassman/squadom/raw/master/static/video/${item + '-' + season()}.jpg?nocache=true`"
           style="height: 100vh;">
         </video-background>
       </v-carousel-item>

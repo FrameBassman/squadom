@@ -19,7 +19,7 @@ export default {
       { hid: 'og:keywords', property: 'og:keywords', content: '4x4, Ivanec, Ivanščica, Mađarska, Slovenija, Varaždin, Zagreb, aktivno, aktivnost, aktivnosti, atv, avantura, brp, building, can-am, canam, cfmoto, druženje, ekipa, extreme, fotograf, grad, gume, hlad, ideja, ivancica, ivanec, ivanščica ivanščica, izlet, kava, lepoglava, ljubav, lobor, mir, mirno, nebo, noć, obitelj, oblaci, odmor, offroad, okolica, opuštanje, osmijeh, outlander, party, pas, planina, planina,quad, planinarenje, planine, pogled, poklonbon, polaris, priroda, quad, rasvjeta, romantika, sljeme, snijeg, spokojno, staze, sunce, team tišina, tragove, tura, ture, ulice, varazdin, varaždin, vidikovac, vikend, visina, vodič, vožnja vožnja, vrh, zabava, zagorje, zima, zlatar, čaj, šuma' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: 'https://github.com/FrameBassman/squadom/raw/master/static/favicon.ico' }
     ]
   },
 
