@@ -2,7 +2,7 @@
  <v-col>
   <v-row>
     <!-- <video-background
-      :src="`/video/${video_number}.mp4`"
+      :src="`https://github.com/FrameBassman/squadom/raw/master/static/video/${video_number}.mp4`"
       style="height: 100vh;"
       muted="false"
       autoplay="true"
@@ -84,7 +84,7 @@
         <v-col>
           <v-row justify="center" align-content="center">
             <v-img v-if="$vuetify.breakpoint.smAndUp"
-              :src="`sound_${this.isSoundEnabled ? 'on' : 'off'}.svg`"
+              :src="`https://github.com/FrameBassman/squadom/raw/master/static/sound_${this.isSoundEnabled ? 'on' : 'off'}.svg`"
               class="mr-3"
               :style="`cursor: pointer; width: 30px; height: 30px; margin-top: 14px; text-align: center; ${this.isSoundEnabled ? 'filter: invert(43%) sepia(33%) saturate(842%) hue-rotate(73deg) brightness(99%) contrast(89%);' : ''}`"
               contain
@@ -135,7 +135,7 @@
         <v-col>
           <v-row justify="center" align-content="center">
             <v-img v-if="$vuetify.breakpoint.smAndUp"
-              :src="`sound_${this.isSoundEnabled ? 'on' : 'off'}.svg`"
+              :src="`https://github.com/FrameBassman/squadom/raw/master/static/sound_${this.isSoundEnabled ? 'on' : 'off'}.svg`"
               class="mr-3"
               :style="`cursor: pointer; width: 30px; height: 30px; margin-top: 14px; text-align: center; ${this.isSoundEnabled ? 'filter: invert(43%) sepia(33%) saturate(842%) hue-rotate(73deg) brightness(99%) contrast(89%);' : ''}`"
               contain
